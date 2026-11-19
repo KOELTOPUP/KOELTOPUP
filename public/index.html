@@ -108,6 +108,7 @@ nav{width:100%;justify-content:center}
 .adm .t select{width:100%;min-width:calc(200px*var(--az));font-size:calc(13px*var(--az));padding:calc(8px*var(--az)) 28px calc(8px*var(--az)) calc(10px*var(--az));text-overflow:clip;white-space:normal}
 .adm .t .btn{font-size:calc(12.5px*var(--az));padding:calc(7px*var(--az)) calc(12px*var(--az))}
 .adm p.sm{font-size:calc(12.5px*var(--az))}
+.chip.lg{background:#fff!important;padding:3px;width:34px;height:34px}.chip img{width:100%;height:100%;object-fit:contain;display:block;border-radius:5px}
 </style></head><body>
 <header><div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2l9 8-9 12L3 10z" fill="currentColor"/></svg>KOELTOPUP</div><nav><a href="#topup">Top Up</a><a href="#cara">Cara Order</a><a href="#cek">Cek Pesanan</a><button onclick="adminOpen()">Admin</button></nav></header>
 <div class="wrap">
@@ -135,11 +136,11 @@ nav{width:100%;justify-content:center}
 <div class="modal" id="m" onclick="if(event.target===this)closeP()"><div class="box" id="pb"></div></div><div id="pa"></div><div id="toast"></div>
 
 <script>
-const CFG={brand:'TopUp Gamers',wa:'6282220913730',
+const CFG={brand:'Triple Game Store',wa:'6282220913730',
 qris:'', /* tempel teks QRIS statis toko Anda: barcode otomatis terisi nominal */
 qrisImg:'qris.png',
 logo:{ml:'img/ml.png',pubg:'img/pubg.png',ff:'img/ff.png'}, /* ganti nama file/link logo resmi di sini; kosong atau file tidak ada = pakai ikon bawaan */
-pay:{QRIS:{c:'#a35a66',l:'Q'},DANA:{c:'#4f86b8',l:'D',no:'0812-3456-7890',an:'Nama Anda'},OVO:{c:'#6a5a96',l:'O',no:'0812-3456-7890',an:'Nama Anda'},SeaBank:{c:'#b57a45',l:'S',no:'9012 3456 7890',an:'Nama Anda'}}};
+pay:{QRIS:{c:'#a35a66',l:'Q',img:'https://cdn.phototourl.com/anon/2026-11-19-f53ceab6-ce3d-4756-98f0-f183960bada0.png'},DANA:{c:'#4f86b8',l:'D',img:'https://cdn.phototourl.com/anon/2026-11-19-f376bf9c-9f77-4ca0-9fb9-0e5585c976f3.png',no:'0812-3456-7890',an:'Nama Anda'},OVO:{c:'#6a5a96',l:'O',img:'https://cdn.phototourl.com/anon/2026-11-19-db33eca2-730c-4e38-9546-5a2a65e27606.png',no:'0812-3456-7890',an:'Nama Anda'},SeaBank:{c:'#b57a45',l:'S',img:'https://cdn.phototourl.com/anon/2026-11-19-56ffb8ba-36dc-4a9a-b23c-3d9f5473ea3e.png',no:'9012 3456 7890',an:'Nama Anda'}}};
 // Banner slide: isi img dengan nama file atau link gambar promo/diskon. Kosong = latar warna.
 const SLIDES=[{t:'Top Up Mobile Legends',s:'Diamond 86 sampai 706. Isi User ID dan Zone ID, bayar, lanjut ke WhatsApp.',g:'ml',img:'',bg:'linear-gradient(120deg,#131b2a,#263a5c)'},
 {t:'Top Up PUBG Mobile',s:'Pilih nominal UC, isi Player ID dan server, pesanan diproses lewat WhatsApp.',g:'pubg',img:'',bg:'linear-gradient(120deg,#1e1a13,#4a3e26)'},
@@ -189,7 +190,8 @@ function pickGame(id){if(gs[id]=='maint')return toast('Game ini sedang gangguan.
 $('fids').innerHTML=g.f.map(f=>f.type=='x'?`<div><label>${f.l}</label><input id="f_${f.k}" value="${f.val}" readonly></div>`:f.type=='s'?`<div><label>${f.l}</label><select id="f_${f.k}"><option value="">Pilih server</option>${f.opts.map(o=>`<option>${o}</option>`).join('')}</select></div>`:`<div><label>${f.l}</label><input id="f_${f.k}" inputmode="numeric" maxlength="${f.max}" placeholder="${f.ph}"></div>`).join('');
 renderPk();renderPays();renderSum();$('form').classList.add('on');$('form').scrollIntoView({behavior:'smooth',block:'start'})}
 function renderPk(){$('pks').innerHTML=gOf(S.g).items.map((x,i)=>`<button class="pk${S.pk===i?' on':''}" onclick="S.pk=${i};renderPk();renderSum()">${DIA}<div><b>${x[0]}</b><small>${rp(x[1])}</small></div></button>`).join('')}
-function renderPays(){$('pays').innerHTML=Object.keys(CFG.pay).map(k=>`<button class="pk${S.pay==k?' on':''}" onclick="S.pay='${k}';renderPays();renderSum()"><span class="chip" style="background:${CFG.pay[k].c}">${CFG.pay[k].l}</span><b>${k}</b></button>`).join('')}
+function payChip(k){const p=CFG.pay[k];return p.img?`<span class="chip lg" style="background:${p.c}"><img src="${p.img}" alt="${k}" onerror="this.parentNode.classList.remove('lg');this.replaceWith(document.createTextNode('${p.l}'))"></span>`:`<span class="chip" style="background:${p.c}">${p.l}</span>`}
+function renderPays(){$('pays').innerHTML=Object.keys(CFG.pay).map(k=>`<button class="pk${S.pay==k?' on':''}" onclick="S.pay='${k}';renderPays();renderSum()">${payChip(k)}<b>${k}</b></button>`).join('')}
 function renderSum(){const g=gOf(S.g);$('sum').innerHTML=S.pk!==null?`<b>${g.name} · ${g.items[S.pk][0]}</b><br><span style="color:var(--ok);font-weight:600">${rp(g.items[S.pk][1])}</span> <span class="sm">${S.pay?'via '+S.pay:'pilih pembayaran'}</span>`:'<span class="sm">Pilih nominal dan metode pembayaran</span>'}
 function newCode(){const d=new Date(),y=String(d.getFullYear()).slice(2)+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');let c;do{c='TP-'+y+'-'+Math.random().toString(36).slice(2,8).toUpperCase()}while(O.some(o=>o.code==c)||(pend&&pend.code==c));return c}
 function checkout(){if(!S.g)return toast('Pilih game terlebih dahulu.');const g=gOf(S.g),v={};
