@@ -21,7 +21,7 @@ const mask = u => (u.length <= 4 ? u[0] + 'xxxx' : u.slice(0, 2) + 'xxxx' + u.sl
 export async function onRequest({ request, env, params }) {
   const p = [].concat(params.path || []);
   const m = request.method;
-  const db = DB;
+  const db = env.DB;
   try {
     if (!db) return json({ error: 'Database belum terhubung' }, 500);
 
