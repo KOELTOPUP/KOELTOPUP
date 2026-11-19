@@ -5,4 +5,4 @@ compatibility_date = "2024-11-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "koeltopup-db"
-database_id = "ISI_DATABASE_ID_DARI_WRANGLER_D1_CREATE"
+database_id = "df28df1c-4009-4d03-af16-c32e393affed"
