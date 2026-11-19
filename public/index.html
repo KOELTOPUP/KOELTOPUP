@@ -93,6 +93,21 @@ nav{width:100%;justify-content:center}
 .amt{font-size:22px}.idv{font-size:18px}
 .step{padding:13px}
 }
+
+/* ===== Dashboard admin: status terbaca penuh + zoom + layar penuh ===== */
+.box.adm{--az:1}
+.box.wide.full{max-width:100%;min-height:calc(100dvh - 28px)}
+.adm .zm{align-items:center;margin:4px 0 10px}.adm .zm .sm{min-width:48px;text-align:center}
+.adm .zm .btn{padding:7px 14px}
+.adm .scroll{max-height:62dvh;border:1px solid var(--line);border-radius:10px}
+.adm.full .scroll{max-height:calc(100dvh - 250px)}
+.adm table.t{font-size:calc(13px*var(--az));min-width:calc(980px*var(--az))}
+.adm .t th,.adm .t td{padding:calc(8px*var(--az));vertical-align:top}
+.adm .t th{position:sticky;top:0;background:var(--card2);z-index:1;white-space:nowrap}
+.adm .t td:nth-child(7){min-width:calc(210px*var(--az))}
+.adm .t select{width:100%;min-width:calc(200px*var(--az));font-size:calc(13px*var(--az));padding:calc(8px*var(--az)) 28px calc(8px*var(--az)) calc(10px*var(--az));text-overflow:clip;white-space:normal}
+.adm .t .btn{font-size:calc(12.5px*var(--az));padding:calc(7px*var(--az)) calc(12px*var(--az))}
+.adm p.sm{font-size:calc(12.5px*var(--az))}
 </style></head><body>
 <header><div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2l9 8-9 12L3 10z" fill="currentColor"/></svg>KOELTOPUP</div><nav><a href="#topup">Top Up</a><a href="#cara">Cara Order</a><a href="#cek">Cek Pesanan</a><button onclick="adminOpen()">Admin</button></nav></header>
 <div class="wrap">
@@ -110,7 +125,7 @@ nav{width:100%;justify-content:center}
 <div class="step"><h3><em>4</em>Nomor WhatsApp</h3><input id="f_wa" inputmode="tel" placeholder="08xxxxxxxxxx"><p class="sm">Dipakai admin untuk memberi kabar status pesanan.</p></div>
 <div class="sumbar"><div id="sum"></div><button class="btn" onclick="checkout()">Buat pesanan dan bayar</button></div></div></section>
 <section id="cara"><h2>Cara order</h2><div class="how"><div class="hw"><em>01</em><b>Pilih game</b><span>Pilih game dan isi ID serta server.</span></div><div class="hw"><em>02</em><b>Pilih nominal</b><span>Tentukan item dan metode bayar.</span></div><div class="hw"><em>03</em><b>Bayar</b><span>Scan QRIS atau transfer sesuai nominal.</span></div><div class="hw"><em>04</em><b>Kirim bukti</b><span>Kirim Invoice/Bukti bayar ke WhatsApp.</span></div></div></section>
-<section id="cek"><h2>Cek pesanan dan invoice</h2><div class="row" style="margin:0"><input id="tid" placeholder="Masukkan kode, contoh: TP-261117-AB12CD" style="max-width:380px"><button class="btn" onclick="track()">Cek status</button></div><div id="recent"></div><div id="tres"></div></section>
+<section id="cek"><h2>Cek pesanan dan invoice</h2><div class="row" style="margin:0"><input id="tid" placeholder="Masukkan kode, contoh: TP-261117-AB12CD" style="max-width:380px"><button class="btn" onclick="track()">Cek status</button></div><div id="recent"></div><div id="hist"></div><div id="tres"></div></section>
 <section class="faq"><h2>Pertanyaan umum</h2>
 <details><summary>Berapa lama top up diproses?</summary><p>Pesanan diproses admin setelah pembayaran diverifikasi. Kirim bukti bayar lewat WhatsApp agar lebih cepat.</p></details>
 <details><summary>Salah memasukkan ID, bagaimana?</summary><p>Pastikan ID dan server benar sebelum membayar. Top up ke ID yang salah tidak bisa dibatalkan.</p></details>
@@ -209,7 +224,13 @@ function rcpt(o){const bt='border-top:2px solid #111;padding-top:6px';return `<d
 function showProof(o){popup(`<h3>Pesanan tercatat ✅</h3><p class="sm">WhatsApp sudah dibuka dengan invoice dalam bentuk teks. Lampirkan screenshot bukti bayar di chat. Anda juga bisa mengirim invoice sebagai gambar lewat tombol di bawah.</p>${rcpt(o)}<div class="row"><button class="btn" onclick="sendInv('${o.code}')">Kirim gambar invoice ke WhatsApp</button><button class="btn alt" onclick="window.open(wl(proofMsg(C['${o.code}'])),'_blank')">Kirim ulang teks invoice</button><button class="btn alt" onclick="cp('${o.code}',this)">Salin kode</button><button class="btn alt" onclick="printR('${o.code}')">Cetak / simpan invoice</button><button class="btn alt" onclick="goTrack('${o.code}')">Cek status</button></div>`)}
 function printR(c){$('pa').innerHTML=rcpt(C[c]);window.print()}
 function goTrack(c){closeP();$('tid').value=c;track();location.hash='cek'}
-function renderRecent(){$('recent').innerHTML=O.length?`<p class="sm" style="margin-top:14px">Pesanan terakhir di perangkat ini:</p><div class="row" style="margin-top:6px">${O.slice(0,5).map(o=>`<button class="btn alt" onclick="goTrack('${o.code}')">${o.code} · <span style="color:var(--acc)">${o.st}</span></button>`).join('')}</div>`:''}
+const FIN=['Berhasil','Gagal','Refund'];
+function renderRecent(){
+const A=O.filter(o=>!FIN.includes(o.st)),D=O.filter(o=>FIN.includes(o.st));
+$('recent').innerHTML=A.length?`<p class="sm" style="margin-top:14px">Pesanan berjalan di perangkat ini:</p><div class="row" style="margin-top:6px">${A.slice(0,5).map(o=>`<button class="btn alt" onclick="goTrack('${o.code}')">${o.code} · <span style="color:var(--acc)">${o.st}</span></button>`).join('')}</div>`:'';
+$('hist').innerHTML=D.length?`<details class="res" style="margin-top:14px"><summary style="cursor:pointer;font-weight:600">Riwayat top up (${D.length})</summary><div class="row" style="margin-top:10px">${D.map(o=>`<button class="btn alt" onclick="goTrack('${o.code}')">${esc(o.code)} · ${esc(o.item)} · <span style="color:var(${o.st=='Berhasil'?'--ok':o.st=='Gagal'?'--bad':'--info'})">${esc(o.st)}</span></button>`).join('')}</div><p class="sm">Ketuk salah satu untuk melihat invoice dan status.</p></details>`:''}
+async function syncOrders(){let ch=0;for(const o of O.slice(0,10)){if(FIN.includes(o.st))continue;try{const n=(await api('orders/'+encodeURIComponent(o.code))).order;if(n.st!=o.st){o.st=n.st;o.hist=n.hist;ch=1}}catch(e){}}
+O=O.slice(0,20);if(ch)sv('tp_orders',O);renderRecent()}
 async function track(){const c=$('tid').value.trim().toUpperCase(),r=$('tres');if(!c)return;r.innerHTML='<div class="res">Memeriksa pesanan...</div>';let o;
 try{o=(await api('orders/'+encodeURIComponent(c))).order}catch(e){r.innerHTML=`<div class="res">${e.status==404?'Kode tidak ditemukan. Periksa penulisan kode.':'Gagal terhubung ke server. Coba lagi.'}<br><br><a class="btn alt" target="_blank" href="${wl('Halo admin, saya ingin cek pesanan dengan kode: '+c)}">Hubungi admin</a></div>`;return}
 const l=O.find(x=>x.code==o.code);if(l){l.st=o.st;l.hist=o.hist;sv('tp_orders',O);renderRecent()}else C[o.code]=o;o=l||o;
@@ -222,8 +243,11 @@ async function adminLogin(){AP=$('apin').value;try{await loadAdmin()}catch(e){AP
 async function refreshAdmin(){try{await loadAdmin();adminView()}catch(e){toast('Gagal memuat data.')}}
 function tab(k){at=k;adminView()}
 function waAdm(i){const o=AO[i];window.open(wl('Halo kak, pesanan '+o.code+' ('+o.item+') statusnya: '+o.st+'. '+EX[o.st],o.wa),'_blank')}
-function adminView(){$('pb').className='box wide';$('m').classList.add('on');
-let h=`<h3>Dashboard admin</h3><div class="tabs"><button class="${at=='ord'?'on':''}" onclick="tab('ord')">Pesanan</button><button class="${at=='game'?'on':''}" onclick="tab('game')">Status game</button></div>`;
+let AZ=+ld('tp_az',1)||1,AF=!!ld('tp_af',false);
+function azSet(d){AZ=d===0?1:Math.min(1.8,Math.max(.7,+(AZ+d).toFixed(2)));sv('tp_az',AZ);adminView()}
+function azFull(){AF=!AF;sv('tp_af',AF);adminView()}
+function adminView(){$('pb').className='box wide adm'+(AF?' full':'');$('pb').style.setProperty('--az',AZ);$('m').classList.add('on');
+let h=`<h3>Dashboard admin</h3><div class="row zm"><button class="btn alt" onclick="azSet(-.1)" aria-label="Perkecil tampilan">A−</button><span class="sm">${Math.round(AZ*100)}%</span><button class="btn alt" onclick="azSet(.1)" aria-label="Perbesar tampilan">A+</button><button class="btn alt" onclick="azSet(0)">Reset</button><button class="btn alt" onclick="azFull()">${AF?'Perkecil layar':'Layar penuh'}</button></div><div class="tabs"><button class="${at=='ord'?'on':''}" onclick="tab('ord')">Pesanan</button><button class="${at=='game'?'on':''}" onclick="tab('game')">Status game</button></div>`;
 if(at=='ord'){const tot=AO.filter(o=>o.st=='Berhasil').reduce((a,o)=>a+o.price,0),L=AO.map((o,i)=>({o,i})).filter(x=>!fs||x.o.st==fs);
 h+=`<p class="sm">Total pesanan: ${AO.length} · Perlu diverifikasi: ${AO.filter(o=>o.st=='Menunggu Verifikasi').length} · Pending: ${AO.filter(o=>o.st.startsWith('Pending')).length} · Pendapatan (berhasil): <b style="color:var(--ok)">${rp(tot)}</b></p><div class="row" style="margin:8px 0"><select onchange="fs=this.value;adminView()" style="max-width:260px"><option value="">Semua status</option>${STS.map(x=>`<option ${x==fs?'selected':''}>${x}</option>`).join('')}</select><button class="btn alt" onclick="refreshAdmin()">Muat ulang</button></div><div class="scroll"><table class="t"><tr><th>Kode</th><th>Waktu</th><th>Game / ID</th><th>Item</th><th>Total</th><th>Bayar / Pengirim</th><th>Status</th><th></th></tr>${L.map(({o,i})=>`<tr><td>${esc(o.code)}</td><td>${esc(o.date)}</td><td>${esc(o.gname)}<br>${esc(idt(o))}</td><td>${esc(o.item)}</td><td>${rp(o.price)}</td><td>${esc(o.pay)}<br>${esc(o.sender||'-')}<br>${esc(o.wa)}</td><td><select onchange="admSt(${i},this.value)">${STS.map(x=>`<option ${x==o.st?'selected':''}>${x}</option>`).join('')}</select></td><td><button class="btn alt" onclick="waAdm(${i})">WA</button> <button class="btn alt" onclick="showInv(${i})">Invoice</button></td></tr>`).join('')||'<tr><td colspan=8>Belum ada pesanan.</td></tr>'}</table></div>`}
 else h+=`<p class="sm">Tandai game yang sedang bermasalah. Pelanggan tidak bisa checkout untuk game berstatus gangguan.</p><table class="t">${GAMES.map(g=>`<tr><td>${g.name}</td><td><select onchange="setGame('${g.id}',this.value)"><option value="ok" ${gs[g.id]!='maint'?'selected':''}>Tersedia</option><option value="maint" ${gs[g.id]=='maint'?'selected':''}>Gangguan</option></select></td></tr>`).join('')}</table>`;
@@ -238,5 +262,5 @@ const ago=t=>{const m=Math.max(1,Math.round((Date.now()-t)/60000));return m<60?m
 async function loadTicker(){try{const r=(await api('recent')).recent||[];if(!r.length){$('tick').style.display='none';return}
 const h=r.map(x=>`<span>ID <b>${esc(x.id)}</b> baru saja membeli <em>${esc(x.item)}</em> di ${esc(x.gname)} · ${ago(x.t)}</span>`).join('');
 $('tk').innerHTML=h+h;$('tk').style.animationDuration=Math.max(24,r.length*7)+'s';$('tick').style.display='flex'}catch(e){$('tick').style.display='none'}}
-slides();renderGames();renderRecent();loadGames();loadTicker();setInterval(loadTicker,60000);
+slides();renderGames();renderRecent();syncOrders();loadGames();loadTicker();setInterval(loadTicker,60000);
 </script></body></html>
