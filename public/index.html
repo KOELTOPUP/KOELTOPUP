@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TopUp Gamers - Mobile Legends, PUBG Mobile, Free Fire</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--bg:#0e1116;--card:#151a22;--card2:#1b222c;--line:#262e3a;--ink:#e6e9ef;--mut:#8b95a5;--acc:#c8a96a;--ok:#5fb38a;--bad:#d4707a;--info:#6c9bd1}
+*{box-sizing:border-box;margin:0}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}body{font:15px/1.6 Inter,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+h1,h2,h3{font-family:Manrope,sans-serif;font-weight:700;line-height:1.2}img{max-width:100%}button{font-family:inherit}
+header{position:sticky;top:0;z-index:30;background:#0e1116ee;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:12px 5%;gap:8px}
+.logo{display:flex;align-items:center;gap:9px;font:800 20px Manrope,sans-serif;letter-spacing:.2px}.logo svg{width:24px;height:24px;color:var(--acc)}
+nav{display:flex;gap:22px;align-items:center}nav a,nav button{color:var(--mut);text-decoration:none;background:none;border:0;font-size:14px;cursor:pointer;transition:.2s}nav a:hover,nav button:hover{color:var(--ink)}
+.wrap{max-width:1100px;margin:auto;padding:0 5%}section{padding:28px 0}section>h2{font-size:24px;margin-bottom:16px}
+.slider{position:relative;overflow:hidden;border-radius:16px;height:300px;margin-top:22px;border:1px solid var(--line)}
+.sl{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8%;opacity:0;transition:opacity .7s;pointer-events:none}.sl.on{opacity:1;pointer-events:auto}
+.slt{max-width:520px}.slt h2{font-size:clamp(26px,4.2vw,42px);font-weight:800}.slt p{color:#c3cbd9;margin:10px 0 18px}.sli{width:130px;opacity:.55;flex-shrink:0}.sli svg{width:100%}
+.ar{position:absolute;top:50%;transform:translateY(-50%);background:#0e111699;border:1px solid #ffffff22;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;z-index:2}.ar.l{left:12px}.ar.r{right:12px}
+.dots{position:absolute;bottom:12px;left:0;right:0;text-align:center;z-index:2}.dots i{display:inline-block;width:7px;height:7px;border-radius:7px;background:#ffffff40;margin:0 4px;cursor:pointer;transition:.3s}.dots i.on{background:var(--acc);width:20px}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.tr{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:center}.tr svg{width:26px;height:26px;color:var(--acc);flex-shrink:0}.tr b{display:block;font-size:14px}.tr span{font-size:12.5px;color:var(--mut)}
+.btn{display:inline-block;background:var(--acc);color:#1a1508;border:0;padding:11px 22px;border-radius:9px;font:600 14px Inter,sans-serif;cursor:pointer;text-decoration:none;transition:.2s}.btn:hover{filter:brightness(1.08)}.btn.alt{background:var(--card2);color:var(--ink);border:1px solid var(--line)}.btn.alt:hover{border-color:var(--acc)}
+.games{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gt{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;color:var(--ink);text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:8px;transition:.25s}
+.gt:hover{border-color:var(--c);transform:translateY(-3px);box-shadow:0 10px 26px #0006}.gt.on{border-color:var(--c);background:var(--card2)}.gt:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}.gt .ic{width:44px;height:44px;color:var(--c);background:#ffffff08;border-radius:12px;padding:9px}.gt .ic svg{width:100%;height:100%}.gt span{font-weight:600}
+.bd{font-size:11.5px;font-weight:600;padding:2px 10px;border-radius:20px;width:max-content;background:#ffffff10}.bd.ok{color:var(--ok);background:#5fb38a1f}.bd.bad{color:var(--bad);background:#d4707a1f}.bd.warn{color:var(--acc);background:#c8a96a1f}.bd.info{color:var(--info);background:#6c9bd11f}
+#form{display:none}#form.on{display:block}.gh{display:flex;align-items:center;gap:12px;margin-top:20px}.gh .ic{width:38px;height:38px}.gh h3{font-size:24px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:14px}.step h3{font-size:17px;margin-bottom:12px;display:flex;align-items:center;gap:10px}.step h3 em{font-style:normal;width:26px;height:26px;border-radius:50%;background:#c8a96a22;color:var(--acc);display:grid;place-items:center;font-size:13px}
+input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit;transition:.2s}input:focus,select:focus{outline:0;border-color:var(--acc)}label{font-size:13px;color:var(--mut)}
+.r2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.pks{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}.pk{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:13px;color:var(--ink);cursor:pointer;text-align:left;font-size:14px;display:flex;gap:10px;align-items:center;transition:.2s}.pk:hover{border-color:#c8a96a88}.pk.on{border-color:var(--acc);background:#c8a96a12}.pk b{display:block;font-weight:600}.pk small{color:var(--mut)}.pk svg{width:18px;height:18px;color:var(--acc);flex-shrink:0}.chip{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;flex-shrink:0}
+.sumbar{position:sticky;bottom:10px;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 10px 30px #000a}
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.hw{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}.hw em{font-style:normal;font:800 22px Manrope,sans-serif;color:var(--acc)}.hw b{display:block;margin:4px 0 2px;font-size:14px}.hw span{font-size:12.5px;color:var(--mut)}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:13px 16px;margin-bottom:8px}.faq summary{cursor:pointer;font-weight:600;font-size:14px}.faq p{color:var(--mut);font-size:13.5px;margin-top:8px}
+.modal{position:fixed;inset:0;background:#000c;display:none;place-items:start center;z-index:50;padding:14px;overflow:auto}.modal.on{display:grid}.box{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:24px;width:100%;max-width:540px;margin:auto}.box.wide{max-width:1000px}.box h3{font-size:22px;margin-bottom:8px}
+.idv{font:700 26px Manrope,sans-serif;letter-spacing:1px;background:var(--bg);border:1px dashed #c8a96a77;color:var(--acc);padding:10px;text-align:center;margin:10px 0;border-radius:10px;user-select:all}
+.amt{font:800 32px Manrope,sans-serif;color:var(--ok)}.qr{background:#fff;padding:12px;border-radius:12px;width:max-content;max-width:100%;margin:10px auto;color:#111;text-align:center}.qr img{display:block}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.sm{font-size:12.5px;color:var(--mut)}p{margin:6px 0}
+.rc{background:#fff;color:#111;border-radius:10px;padding:16px;margin:10px 0}.rc .rh{display:flex;justify-content:space-between;border-bottom:2px dashed #bbb;padding-bottom:8px;margin-bottom:8px;flex-wrap:wrap;gap:4px}.rc table{width:100%;font-size:13.5px}.rc td{padding:3px 0;vertical-align:top}.rc td:last-child{text-align:right;font-weight:600}
+.res{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px}.res ul{padding-left:18px;font-size:13px;color:var(--mut)}
+table.t{width:100%;border-collapse:collapse;font-size:13px}.t th,.t td{padding:8px;border-bottom:1px solid var(--line);text-align:left}.scroll{overflow:auto;max-height:55vh}
+.tabs{display:flex;gap:8px;margin-bottom:12px}.tabs button{padding:7px 16px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:30px;cursor:pointer}.tabs button.on{background:var(--acc);color:#1a1508;border-color:var(--acc)}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(90px);background:#3a2024;border:1px solid var(--bad);color:#f3d4d8;padding:10px 18px;border-radius:9px;z-index:99;transition:.3s;font-size:14px;max-width:90%}#toast.on{transform:translateX(-50%)}
+footer{text-align:center;color:var(--mut);padding:30px 5%;font-size:13px;border-top:1px solid var(--line);margin-top:30px}
+.gt .ic img,.gh .ic img,.sli img{width:100%;height:100%;object-fit:contain;display:block;border-radius:6px}
+.tick{display:none;align-items:center;margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;height:42px}
+.tick .lb{flex-shrink:0;padding:0 14px;height:100%;display:flex;align-items:center;gap:8px;background:#c8a96a1f;color:var(--acc);font:700 12px Manrope,sans-serif;letter-spacing:.6px;border-right:1px solid var(--line)}
+.tick .lb i{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pl 1.4s infinite}
+@keyframes pl{50%{opacity:.25}}
+.tkw{overflow:hidden;flex:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.tk{display:flex;width:max-content;animation:mq 30s linear infinite;font-size:13px;color:var(--mut)}
+.tk:hover{animation-play-state:paused}
+.tk span{white-space:nowrap;padding-right:48px}.tk b{color:var(--ink);font-weight:600}.tk em{font-style:normal;color:var(--ok)}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.tk{animation:none}}
+#pa{display:none}@media print{body>*:not(#pa){display:none!important}#pa{display:block!important}}
+@media(max-width:700px){body{font-size:14px}section>h2{font-size:21px}.slider{height:210px;margin-top:12px}.sl{padding:0 6%}.slt p{font-size:12.5px;margin:6px 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sli{width:64px}.trust{grid-template-columns:1fr}.how{grid-template-columns:1fr 1fr}.games{gap:8px}.gt{padding:12px}.gt .ic{width:36px;height:36px;padding:7px}.gt span{font-size:12.5px}.gt .bd{font-size:10px;padding:1px 7px}.gh h3{font-size:20px}.step{padding:15px}.pks{grid-template-columns:repeat(2,1fr);gap:8px}.pk{padding:10px;font-size:13px}.box{padding:16px}.box h3{font-size:20px}.amt{font-size:26px}.idv{font-size:22px}input,select{font-size:16px}.btn{padding:10px 16px;font-size:13px}.t th,.t td{padding:6px;font-size:12px}nav{gap:14px}.ar{width:30px;height:30px;font-size:17px}}
+</style></head><body>
+<header><div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2l9 8-9 12L3 10z" fill="currentColor"/></svg>KOELTOPUP</div><nav><a href="#topup">Top Up</a><a href="#cara">Cara Order</a><a href="#cek">Cek Pesanan</a><button onclick="adminOpen()">Admin</button></nav></header>
+<div class="wrap">
+<div class="slider" id="sl"></div>
+<div class="trust">
+<div class="tr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><div><b>Proses cepat</b><span>Diproses admin setelah bayar terverifikasi</span></div></div>
+<div class="tr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><div><b>Aman dan tercatat</b><span>Invoice dan kode pesanan di setiap order</span></div></div>
+<div class="tr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg><div><b>Bantuan via WhatsApp</b><span>Admin siap membantu kendala pesanan</span></div></div></div>
+<div class="tick" id="tick"><div class="lb"><i></i>LIVE</div><div class="tkw"><div class="tk" id="tk"></div></div></div>
+<section id="topup"><h2>Pilih game</h2><div class="games" id="games"></div>
+<div id="form"><div class="gh" id="gh"></div>
+<div class="step"><h3><em>1</em>Isi ID dan server</h3><div class="r2" id="fids"></div></div>
+<div class="step"><h3><em>2</em>Pilih nominal</h3><div class="pks" id="pks"></div></div>
+<div class="step"><h3><em>3</em>Metode pembayaran</h3><div class="pks" id="pays"></div></div>
+<div class="step"><h3><em>4</em>Nomor WhatsApp</h3><input id="f_wa" inputmode="tel" placeholder="08xxxxxxxxxx"><p class="sm">Dipakai admin untuk memberi kabar status pesanan.</p></div>
+<div class="sumbar"><div id="sum"></div><button class="btn" onclick="checkout()">Buat pesanan dan bayar</button></div></div></section>
+<section id="cara"><h2>Cara order</h2><div class="how"><div class="hw"><em>01</em><b>Pilih game</b><span>Pilih game dan isi ID serta server.</span></div><div class="hw"><em>02</em><b>Pilih nominal</b><span>Tentukan item dan metode bayar.</span></div><div class="hw"><em>03</em><b>Bayar</b><span>Scan QRIS atau transfer sesuai nominal.</span></div><div class="hw"><em>04</em><b>Kirim bukti</b><span>Kirim Invoice/Bukti bayar ke WhatsApp.</span></div></div></section>
+<section id="cek"><h2>Cek pesanan dan invoice</h2><div class="row" style="margin:0"><input id="tid" placeholder="Masukkan kode, contoh: TP-261117-AB12CD" style="max-width:380px"><button class="btn" onclick="track()">Cek status</button></div><div id="recent"></div><div id="tres"></div></section>
+<section class="faq"><h2>Pertanyaan umum</h2>
+<details><summary>Berapa lama top up diproses?</summary><p>Pesanan diproses admin setelah pembayaran diverifikasi. Kirim bukti bayar lewat WhatsApp agar lebih cepat.</p></details>
+<details><summary>Salah memasukkan ID, bagaimana?</summary><p>Pastikan ID dan server benar sebelum membayar. Top up ke ID yang salah tidak bisa dibatalkan.</p></details>
+<details><summary>Bagaimana cek status pesanan?</summary><p>Gunakan kode pembelian pada menu Cek Pesanan. Riwayat hanya tersimpan di perangkat yang dipakai memesan, atau hubungi admin dengan kode Anda.</p></details></section>
+</div>
+<footer id="foot"></footer>
+<div class="modal" id="m" onclick="if(event.target===this)closeP()"><div class="box" id="pb"></div></div><div id="pa"></div><div id="toast"></div>
+
+<script>
+const CFG={brand:'TopUp Gamers',wa:'6281234567890',
+qris:'', /* tempel teks QRIS statis toko Anda: barcode otomatis terisi nominal */
+qrisImg:'qris.png',
+logo:{ml:'img/ml.png',pubg:'img/pubg.png',ff:'img/ff.png'}, /* ganti nama file/link logo resmi di sini; kosong atau file tidak ada = pakai ikon bawaan */
+pay:{QRIS:{c:'#a35a66',l:'Q'},DANA:{c:'#4f86b8',l:'D',no:'0812-3456-7890',an:'Nama Anda'},OVO:{c:'#6a5a96',l:'O',no:'0812-3456-7890',an:'Nama Anda'},SeaBank:{c:'#b57a45',l:'S',no:'9012 3456 7890',an:'Nama Anda'}}};
+// Banner slide: isi img dengan nama file atau link gambar promo/diskon. Kosong = latar warna.
+const SLIDES=[{t:'Top Up Mobile Legends',s:'Diamond 86 sampai 706. Isi User ID dan Zone ID, bayar, lanjut ke WhatsApp.',g:'ml',img:'',bg:'linear-gradient(120deg,#131b2a,#263a5c)'},
+{t:'Top Up PUBG Mobile',s:'Pilih nominal UC, isi Player ID dan server, pesanan diproses lewat WhatsApp.',g:'pubg',img:'',bg:'linear-gradient(120deg,#1e1a13,#4a3e26)'},
+{t:'Top Up Free Fire',s:'Diamond Free Fire dengan kode pembelian untuk cek status kapan saja.',g:'ff',img:'',bg:'linear-gradient(120deg,#231719,#4d2f2e)'}];
+// Harga hanya contoh. Server PUBG dan Free Fire dikunci ke Indonesia.
+const GAMES=[
+{id:'ml',name:'Mobile Legends',col:'#7fa6d6',f:[{k:'uid',l:'User ID',ph:'Contoh: 12345678',min:6,max:12},{k:'srv',l:'Zone ID (Server)',ph:'Contoh: 1234',min:3,max:6}],items:[['86 Diamond',21000],['172 Diamond',42000],['257 Diamond',62000],['344 Diamond',83000],['514 Diamond',123000],['706 Diamond',168000]]},
+{id:'pubg',name:'PUBG Mobile',col:'#c8a96a',f:[{k:'uid',l:'Player ID',ph:'Contoh: 5123456789',min:8,max:12},{k:'srv',l:'Server',type:'x',val:'Indonesia'}],items:[['60 UC',15000],['325 UC',75000],['660 UC',150000],['1800 UC',380000]]},
+{id:'ff',name:'Free Fire',col:'#d99a7c',f:[{k:'uid',l:'Player ID',ph:'Contoh: 123456789',min:7,max:12},{k:'srv',l:'Server',type:'x',val:'Indonesia'}],items:[['70 Diamond',10000],['140 Diamond',20000],['355 Diamond',50000],['720 Diamond',100000],['1450 Diamond',200000]]}];
+const ICON={ml:'<svg viewBox="0 0 48 48"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M24 14l7 8-7 12-7-12z" fill="currentColor"/></svg>',
+pubg:'<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M24 4v12M24 32v12M4 24h12M32 24h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="24" r="2.5" fill="currentColor"/></svg>',
+ff:'<svg viewBox="0 0 48 48"><path d="M25 3c1 9 13 13 13 26a14 14 0 0 1-28 0c0-7 4-11 8-14 0 5 2 7 4 8-2-9-1-15 3-20z" fill="currentColor"/></svg>'},DIA='<svg viewBox="0 0 24 24"><path d="M12 2l9 8-9 12L3 10z" fill="currentColor"/></svg>';
+function fbIcon(id){const d=document.createElement('div');d.innerHTML=ICON[id];return d.firstChild}
+const ic=id=>CFG.logo&&CFG.logo[id]?`<img src="${CFG.logo[id]}" alt="${gOf(id).name}" loading="lazy" onerror="this.replaceWith(fbIcon('${id}'))">`:ICON[id];
+const STS=['Menunggu Pembayaran','Menunggu Verifikasi','Diproses','Berhasil','Pending (kendala sistem)','Gagal','Refund'];
+const CL={'Menunggu Pembayaran':'warn','Menunggu Verifikasi':'warn','Diproses':'info','Berhasil':'ok','Pending (kendala sistem)':'warn','Gagal':'bad','Refund':'info'};
+const EX={'Menunggu Pembayaran':'Pesanan dibuat. Lakukan pembayaran sesuai nominal, lalu kirim bukti bayar ke admin.','Menunggu Verifikasi':'Admin sedang memeriksa pembayaran Anda. Kirim bukti bayar lewat WhatsApp agar lebih cepat.','Diproses':'Pembayaran diterima. Top up sedang diproses ke akun game Anda.','Berhasil':'Top up berhasil. Silakan cek akun game Anda. Jika belum masuk, hubungi admin dengan kode ini.','Pending (kendala sistem)':'Ada kendala pada sistem atau server game. Pesanan Anda tidak hilang dan akan diproses ulang. Jika belum selesai, hubungi admin dengan kode ini.','Gagal':'Pesanan gagal atau dibatalkan. Jika sudah membayar, hubungi admin untuk proses ulang atau pengembalian dana.','Refund':'Dana pesanan dikembalikan. Hubungi admin jika belum Anda terima.'};
+const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),rp=n=>'Rp'+n.toLocaleString('id-ID');
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let O=ld('tp_orders',[]),gs={},AP='',AO=[],C={},S={g:null,pk:null,pay:null},pend=null,fs='',at='ord',si=0;
+O.forEach(o=>C[o.code]=o);
+const api=(p,o={})=>fetch('/api/'+p,Object.assign({},o,{headers:Object.assign({'Content-Type':'application/json'},AP?{'X-Admin-Pin':AP}:{})})).then(async r=>{const j=await r.json().catch(()=>({}));if(!r.ok)throw Object.assign(new Error(j.error||'Terjadi kesalahan'),{status:r.status});return j});
+const gOf=id=>GAMES.find(g=>g.id==id),now=()=>new Date().toLocaleString('id-ID'),wl=(m,n)=>'https://wa.me/'+(n||CFG.wa)+'?text='+encodeURIComponent(m),idt=o=>o.uid+' ('+o.srv+')';
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),3200)}
+function popup(h){$('pb').className='box';$('pb').innerHTML=h;$('m').classList.add('on')}function closeP(){$('m').classList.remove('on')}
+document.addEventListener('keydown',e=>{if(e.key=='Escape')closeP()});
+function cp(t,b){const ok=()=>{if(b){const x=b.textContent;b.textContent='Tersalin ✓';setTimeout(()=>b.textContent=x,1800)}};
+function fb(){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){toast('Salin manual: '+t)}a.remove()}
+if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok).catch(fb);else fb()}
+
+/* QRIS dinamis: QRIS statis diubah agar memuat nominal, CRC dihitung ulang */
+function crc16(s){let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=c&0x8000?((c<<1)^0x1021):(c<<1);c&=0xFFFF}return c.toString(16).toUpperCase().padStart(4,'0')}
+function dynQris(st,amt){let b=st.trim().slice(0,-4).replace('010211','010212');const a=String(amt),k=b.indexOf('5802ID');if(k<0)return null;const x=b.slice(0,k)+'54'+String(a.length).padStart(2,'0')+a+b.slice(k);return x+crc16(x)}
+function drawQr(amt){const el=$('qr');if(CFG.qris&&typeof QRCode!='undefined'){const t=dynQris(CFG.qris,amt);if(t){new QRCode(el,{text:t,width:230,height:230,correctLevel:QRCode.CorrectLevel.M});return}}
+el.innerHTML=`<img src="${CFG.qrisImg}" width="230" alt="QRIS" onerror="this.outerHTML='<p>QRIS belum diatur. Hubungi admin lewat WhatsApp untuk minta barcode.</p>'">`}
+
+/* Banner slide */
+function slides(){$('sl').innerHTML=SLIDES.map((s,i)=>{const g=gOf(s.g),bg=s.img?`linear-gradient(90deg,#0e1116cc,#0e111633),url(${s.img}) center/cover`:s.bg;return `<div class="sl${i?'':' on'}" style="background:${bg}"><div class="slt"><h2>${s.t}</h2><p>${s.s}</p><button class="btn" onclick="pickGame('${s.g}')">Top up sekarang</button></div><div class="sli" style="color:${g.col}">${ic(s.g)}</div></div>`}).join('')+'<button class="ar l" onclick="go(si-1)">‹</button><button class="ar r" onclick="go(si+1)">›</button><div class="dots">'+SLIDES.map((_,i)=>`<i class="${i?'':'on'}" onclick="go(${i})"></i>`).join('')+'</div>'}
+function go(n){si=(n+SLIDES.length)%SLIDES.length;document.querySelectorAll('.sl').forEach((e,i)=>e.classList.toggle('on',i==si));document.querySelectorAll('.dots i').forEach((e,i)=>e.classList.toggle('on',i==si))}
+setInterval(()=>go(si+1),5200);
+
+/* Halaman top up */
+function renderGames(){$('games').innerHTML=GAMES.map(g=>{const m=gs[g.id]=='maint';return `<button class="gt${S.g==g.id?' on':''}" style="--c:${g.col}" ${m?'disabled':''} onclick="pickGame('${g.id}')"><div class="ic">${ic(g.id)}</div><span>${g.name}</span><small class="bd ${m?'bad':'ok'}">${m?'Gangguan':'Tersedia'}</small></button>`}).join('')}
+function pickGame(id){if(gs[id]=='maint')return toast('Game ini sedang gangguan.');S.g=id;S.pk=null;renderGames();const g=gOf(id);$('gh').innerHTML=`<div class="ic" style="color:${g.col}">${ic(id)}</div><h3>${g.name}</h3>`;
+$('fids').innerHTML=g.f.map(f=>f.type=='x'?`<div><label>${f.l}</label><input id="f_${f.k}" value="${f.val}" readonly></div>`:f.type=='s'?`<div><label>${f.l}</label><select id="f_${f.k}"><option value="">Pilih server</option>${f.opts.map(o=>`<option>${o}</option>`).join('')}</select></div>`:`<div><label>${f.l}</label><input id="f_${f.k}" inputmode="numeric" maxlength="${f.max}" placeholder="${f.ph}"></div>`).join('');
+renderPk();renderPays();renderSum();$('form').classList.add('on');$('form').scrollIntoView({behavior:'smooth',block:'start'})}
+function renderPk(){$('pks').innerHTML=gOf(S.g).items.map((x,i)=>`<button class="pk${S.pk===i?' on':''}" onclick="S.pk=${i};renderPk();renderSum()">${DIA}<div><b>${x[0]}</b><small>${rp(x[1])}</small></div></button>`).join('')}
+function renderPays(){$('pays').innerHTML=Object.keys(CFG.pay).map(k=>`<button class="pk${S.pay==k?' on':''}" onclick="S.pay='${k}';renderPays();renderSum()"><span class="chip" style="background:${CFG.pay[k].c}">${CFG.pay[k].l}</span><b>${k}</b></button>`).join('')}
+function renderSum(){const g=gOf(S.g);$('sum').innerHTML=S.pk!==null?`<b>${g.name} · ${g.items[S.pk][0]}</b><br><span style="color:var(--ok);font-weight:600">${rp(g.items[S.pk][1])}</span> <span class="sm">${S.pay?'via '+S.pay:'pilih pembayaran'}</span>`:'<span class="sm">Pilih nominal dan metode pembayaran</span>'}
+function newCode(){const d=new Date(),y=String(d.getFullYear()).slice(2)+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');let c;do{c='TP-'+y+'-'+Math.random().toString(36).slice(2,8).toUpperCase()}while(O.some(o=>o.code==c)||(pend&&pend.code==c));return c}
+function checkout(){if(!S.g)return toast('Pilih game terlebih dahulu.');const g=gOf(S.g),v={};
+for(const f of g.f){if(f.type=='x'){v[f.k]=f.val;continue}const x=$('f_'+f.k).value.trim();if(f.type=='s'){if(!x)return toast('Pilih '+f.l+'.')}else if(!/^\d+$/.test(x)||x.length<f.min||x.length>f.max)return toast(f.l+' wajib diisi angka '+f.min+' sampai '+f.max+' digit.');v[f.k]=x}
+if(S.pk===null)return toast('Pilih nominal terlebih dahulu.');if(!S.pay)return toast('Pilih metode pembayaran.');
+const wa=$('f_wa').value.replace(/\D/g,'');if(wa.length<9)return toast('Isi nomor WhatsApp yang valid.');
+const it=g.items[S.pk];pend={code:newCode(),g:g.id,gname:g.name,uid:v.uid,srv:v.srv,item:it[0],price:it[1],pay:S.pay,wa:wa[0]=='0'?'62'+wa.slice(1):wa};showConfirm()}
+function showConfirm(){const o=pend,p=CFG.pay[o.pay];popup(`<h3>Konfirmasi pesanan</h3><p class="sm">Periksa data, lakukan pembayaran, lalu lanjut ke WhatsApp untuk mengirim bukti bayar. Top up diproses admin setelah pembayaran diverifikasi.</p>
+<p class="sm" style="margin-top:12px">Kode pembelian (simpan untuk cek status)</p><div class="idv">${o.code}</div><button class="btn alt" onclick="cp('${o.code}',this)">Salin kode</button>
+<div class="rc"><table><tr><td>Game</td><td>${o.gname}</td></tr><tr><td>${gOf(o.g).f[0].l}</td><td style="font-size:17px">${o.uid}</td></tr><tr><td>${gOf(o.g).f[1].l}</td><td style="font-size:17px">${o.srv}</td></tr><tr><td>Item</td><td>${o.item}</td></tr><tr><td>Pembayaran</td><td>${o.pay}</td></tr><tr><td>No. WhatsApp</td><td>${o.wa}</td></tr></table></div>
+<p>Total yang harus dibayar</p><div class="amt">${rp(o.price)}</div>
+${o.pay=='QRIS'?`<div class="qr" id="qr"></div><p class="sm">Scan dengan aplikasi e-wallet atau m-banking. Nominal sudah terisi otomatis.</p>`:`<p>Transfer ke <b>${o.pay}</b>:</p><div class="idv" style="font-size:22px">${p.no}</div><p class="sm">a.n. ${p.an}</p><button class="btn alt" onclick="cp('${p.no.replace(/\D/g,'')}',this)">Salin nomor</button>`}
+<div style="margin-top:14px"><label>Nama pengirim pembayaran (wajib)</label><input id="snd" maxlength="60" placeholder="Nama sesuai akun e-wallet atau rekening yang dipakai membayar"><p class="sm">Isi nama yang sama dengan yang tampil di bukti pembayaran ${o.pay}.</p></div><label style="display:flex;gap:8px;align-items:flex-start;color:var(--ink);margin-top:12px"><input type="checkbox" id="cOk" style="width:auto;margin-top:4px"> Saya sudah memastikan ID dan server di atas benar.</label>
+<div class="row"><button class="btn" onclick="goWa()">Saya sudah bayar, lanjut ke WhatsApp</button><button class="btn alt" onclick="closeP()">Ubah data</button></div>`);if(o.pay=='QRIS')drawQr(o.price)}
+const inv=o=>'INV-'+o.code.slice(3);
+function proofMsg(o){return `*INVOICE ${inv(o)}*\n${CFG.brand}\n------------------------\nKode: ${o.code}\nTanggal: ${o.date}\nGame: ${o.gname}\nID: ${o.uid}\nServer: ${o.srv}\nItem: ${o.item}\nMetode: ${o.pay}\nNama pengirim: ${o.sender}\nNo. WA: ${o.wa}\n------------------------\n*TOTAL: ${rp(o.price)}*\nStatus: ${o.st}\n\nSaya lampirkan screenshot bukti bayar di chat ini.`}
+/* Invoice sebagai gambar PNG, bisa dibagikan langsung ke WhatsApp */
+function invCanvas(o){const R=[['Kode pembelian',o.code],['Tanggal',o.date],['Game',o.gname],['ID (Server)',idt(o)],['Item',o.item],['Pembayaran',o.pay],['Nama pengirim',o.sender||'-'],['No. WhatsApp',o.wa],['Status',o.st]],W=600,H=150+R.length*38+110,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+x.fillStyle='#fff';x.fillRect(0,0,W,H);x.textAlign='left';x.fillStyle='#111';x.font='700 26px sans-serif';x.fillText(CFG.brand,30,52);x.fillStyle='#666';x.font='13px sans-serif';x.fillText('WhatsApp +'+CFG.wa,30,74);
+x.textAlign='right';x.fillStyle='#111';x.font='700 22px sans-serif';x.fillText('INVOICE',W-30,52);x.fillStyle='#666';x.font='13px sans-serif';x.fillText(inv(o),W-30,74);
+x.strokeStyle='#bbb';x.setLineDash([6,4]);x.beginPath();x.moveTo(30,96);x.lineTo(W-30,96);x.stroke();x.setLineDash([]);
+R.forEach((r,i)=>{const y=134+i*38;x.textAlign='left';x.fillStyle='#666';x.font='14px sans-serif';x.fillText(r[0],30,y);x.textAlign='right';x.fillStyle='#111';x.font='600 14px sans-serif';x.fillText(r[1],W-30,y)});
+const y=134+R.length*38;x.fillStyle='#111';x.fillRect(30,y-18,W-60,2);x.textAlign='left';x.font='700 16px sans-serif';x.fillText('Total',30,y+12);x.textAlign='right';x.font='700 22px sans-serif';x.fillText(rp(o.price),W-30,y+12);
+x.textAlign='center';x.fillStyle='#777';x.font='12px sans-serif';x.fillText('Invoice ini adalah bukti pembelian. Simpan kode '+o.code+' untuk cek status.',W/2,H-24);return c}
+function sendInv(code){const o=C[code];invCanvas(o).toBlob(async b=>{const f=new File([b],inv(o)+'.png',{type:'image/png'});
+if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:proofMsg(o)});return}catch(e){if(e.name=='AbortError')return}}
+const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=inv(o)+'.png';document.body.appendChild(a);a.click();a.remove();window.open(wl(proofMsg(o)),'_blank');toast('Gambar invoice tersimpan. Lampirkan di chat WhatsApp admin.')},'image/png')}
+async function goWa(){const sn=$('snd').value.trim();if(sn.length<3)return toast('Isi nama pengirim pembayaran terlebih dahulu.');if(!$('cOk').checked)return toast('Centang konfirmasi ID dan server terlebih dahulu.');if(goWa.b)return;goWa.b=1;const w=window.open('about:blank','_blank');
+try{const r=await api('orders',{method:'POST',body:JSON.stringify({code:pend.code,g:pend.g,uid:pend.uid,srv:pend.srv,item:pend.item,pay:pend.pay,wa:pend.wa,sender:sn})}),o=r.order;O.unshift(o);C[o.code]=o;sv('tp_orders',O);pend=null;if(w)w.location.href=wl(proofMsg(o));showProof(o);renderRecent()}
+catch(e){if(w)w.close();if(e.status==409){pend.code=newCode();toast('Kode bentrok, kode baru dibuat. Periksa lalu kirim lagi.');showConfirm()}else toast(e.message||'Gagal terhubung ke server.')}finally{goWa.b=0}}
+function rcpt(o){const bt='border-top:2px solid #111;padding-top:6px';return `<div class="rc"><div class="rh"><div><b style="font-size:18px">${CFG.brand}</b><br><span style="font-size:12px;color:#555">WhatsApp +${CFG.wa}</span></div><div style="text-align:right"><b>INVOICE</b><br><span style="font-size:13px">${inv(o)}</span></div></div><table><tr><td>Kode pembelian</td><td>${o.code}</td></tr><tr><td>Tanggal</td><td>${o.date}</td></tr><tr><td>Game</td><td>${o.gname}</td></tr><tr><td>ID (Server)</td><td>${idt(o)}</td></tr><tr><td>Item</td><td>${o.item}</td></tr><tr><td>Metode pembayaran</td><td>${o.pay}</td></tr><tr><td>Nama pengirim</td><td>${esc(o.sender||'-')}</td></tr><tr><td>No. WhatsApp</td><td>${o.wa}</td></tr><tr><td style="${bt}">Total</td><td style="${bt};font-size:16px">${rp(o.price)}</td></tr><tr><td>Status</td><td>${o.st}</td></tr></table><p style="font-size:12px;color:#555;margin-top:8px">Invoice ini adalah bukti pembelian. Simpan kode ${o.code} untuk cek status pesanan.</p></div>`}
+function showProof(o){popup(`<h3>Pesanan tercatat ✅</h3><p class="sm">WhatsApp sudah dibuka dengan invoice dalam bentuk teks. Lampirkan screenshot bukti bayar di chat. Anda juga bisa mengirim invoice sebagai gambar lewat tombol di bawah.</p>${rcpt(o)}<div class="row"><button class="btn" onclick="sendInv('${o.code}')">Kirim gambar invoice ke WhatsApp</button><button class="btn alt" onclick="window.open(wl(proofMsg(C['${o.code}'])),'_blank')">Kirim ulang teks invoice</button><button class="btn alt" onclick="cp('${o.code}',this)">Salin kode</button><button class="btn alt" onclick="printR('${o.code}')">Cetak / simpan invoice</button><button class="btn alt" onclick="goTrack('${o.code}')">Cek status</button></div>`)}
+function printR(c){$('pa').innerHTML=rcpt(C[c]);window.print()}
+function goTrack(c){closeP();$('tid').value=c;track();location.hash='cek'}
+function renderRecent(){$('recent').innerHTML=O.length?`<p class="sm" style="margin-top:14px">Pesanan terakhir di perangkat ini:</p><div class="row" style="margin-top:6px">${O.slice(0,5).map(o=>`<button class="btn alt" onclick="goTrack('${o.code}')">${o.code} · <span style="color:var(--acc)">${o.st}</span></button>`).join('')}</div>`:''}
+async function track(){const c=$('tid').value.trim().toUpperCase(),r=$('tres');if(!c)return;r.innerHTML='<div class="res">Memeriksa pesanan...</div>';let o;
+try{o=(await api('orders/'+encodeURIComponent(c))).order}catch(e){r.innerHTML=`<div class="res">${e.status==404?'Kode tidak ditemukan. Periksa penulisan kode.':'Gagal terhubung ke server. Coba lagi.'}<br><br><a class="btn alt" target="_blank" href="${wl('Halo admin, saya ingin cek pesanan dengan kode: '+c)}">Hubungi admin</a></div>`;return}
+const l=O.find(x=>x.code==o.code);if(l){l.st=o.st;l.hist=o.hist;sv('tp_orders',O);renderRecent()}else C[o.code]=o;o=l||o;
+r.innerHTML=`<div class="res"><span class="bd ${CL[o.st]}">${o.st}</span><p>${EX[o.st]}</p>${rcpt(o)}<ul>${(o.hist||[]).map(h=>`<li>${h.d} · ${h.st}</li>`).join('')}</ul><div class="row"><a class="btn" target="_blank" href="${wl('Halo admin, saya ingin menanyakan pesanan.\nKode: '+o.code+'\nStatus: '+o.st+'\nItem: '+o.item)}">Chat admin via WhatsApp</a><button class="btn alt" onclick="sendInv('${o.code}')">Kirim invoice (gambar)</button><button class="btn alt" onclick="cp('${o.code}',this)">Salin kode</button><button class="btn alt" onclick="printR('${o.code}')">Cetak / simpan invoice</button></div></div>`}
+
+/* Admin: PIN dicek server, data diambil dari database */
+function adminOpen(){popup(`<h3>Login admin</h3><input id="apin" type="password" placeholder="PIN admin"><div class="row"><button class="btn" onclick="adminLogin()">Masuk</button><button class="btn alt" onclick="closeP()">Tutup</button></div>`)}
+async function loadAdmin(){AO=(await api('admin/orders')).orders;AO.forEach(o=>C[o.code]=o)}
+async function adminLogin(){AP=$('apin').value;try{await loadAdmin()}catch(e){AP='';return toast(e.status==401?'PIN salah.':'Gagal terhubung ke server.')}adminView()}
+async function refreshAdmin(){try{await loadAdmin();adminView()}catch(e){toast('Gagal memuat data.')}}
+function tab(k){at=k;adminView()}
+function waAdm(i){const o=AO[i];window.open(wl('Halo kak, pesanan '+o.code+' ('+o.item+') statusnya: '+o.st+'. '+EX[o.st],o.wa),'_blank')}
+function adminView(){$('pb').className='box wide';$('m').classList.add('on');
+let h=`<h3>Dashboard admin</h3><div class="tabs"><button class="${at=='ord'?'on':''}" onclick="tab('ord')">Pesanan</button><button class="${at=='game'?'on':''}" onclick="tab('game')">Status game</button></div>`;
+if(at=='ord'){const tot=AO.filter(o=>o.st=='Berhasil').reduce((a,o)=>a+o.price,0),L=AO.map((o,i)=>({o,i})).filter(x=>!fs||x.o.st==fs);
+h+=`<p class="sm">Total pesanan: ${AO.length} · Perlu diverifikasi: ${AO.filter(o=>o.st=='Menunggu Verifikasi').length} · Pending: ${AO.filter(o=>o.st.startsWith('Pending')).length} · Pendapatan (berhasil): <b style="color:var(--ok)">${rp(tot)}</b></p><div class="row" style="margin:8px 0"><select onchange="fs=this.value;adminView()" style="max-width:260px"><option value="">Semua status</option>${STS.map(x=>`<option ${x==fs?'selected':''}>${x}</option>`).join('')}</select><button class="btn alt" onclick="refreshAdmin()">Muat ulang</button></div><div class="scroll"><table class="t"><tr><th>Kode</th><th>Waktu</th><th>Game / ID</th><th>Item</th><th>Total</th><th>Bayar / Pengirim</th><th>Status</th><th></th></tr>${L.map(({o,i})=>`<tr><td>${esc(o.code)}</td><td>${esc(o.date)}</td><td>${esc(o.gname)}<br>${esc(idt(o))}</td><td>${esc(o.item)}</td><td>${rp(o.price)}</td><td>${esc(o.pay)}<br>${esc(o.sender||'-')}<br>${esc(o.wa)}</td><td><select onchange="admSt(${i},this.value)">${STS.map(x=>`<option ${x==o.st?'selected':''}>${x}</option>`).join('')}</select></td><td><button class="btn alt" onclick="waAdm(${i})">WA</button> <button class="btn alt" onclick="showInv(${i})">Invoice</button></td></tr>`).join('')||'<tr><td colspan=8>Belum ada pesanan.</td></tr>'}</table></div>`}
+else h+=`<p class="sm">Tandai game yang sedang bermasalah. Pelanggan tidak bisa checkout untuk game berstatus gangguan.</p><table class="t">${GAMES.map(g=>`<tr><td>${g.name}</td><td><select onchange="setGame('${g.id}',this.value)"><option value="ok" ${gs[g.id]!='maint'?'selected':''}>Tersedia</option><option value="maint" ${gs[g.id]=='maint'?'selected':''}>Gangguan</option></select></td></tr>`).join('')}</table>`;
+$('pb').innerHTML=h+`<div class="row"><button class="btn alt" onclick="closeP()">Tutup</button></div>`}
+async function admSt(i,v){try{await api('admin/orders/'+AO[i].code+'/status',{method:'POST',body:JSON.stringify({st:v})});await loadAdmin();adminView()}catch(e){toast(e.message);adminView()}}
+async function setGame(id,v){try{await api('admin/games',{method:'POST',body:JSON.stringify({id,status:v})});gs[id]=v;renderGames()}catch(e){toast(e.message)}}
+function showInv(i){popup(`<h3>Invoice</h3>${rcpt(AO[i])}<div class="row"><button class="btn" onclick="printR('${AO[i].code}')">Cetak / simpan invoice</button><button class="btn alt" onclick="adminView()">Kembali ke dashboard</button></div>`)}
+async function loadGames(){try{gs=(await api('games')).games||{}}catch(e){gs={}}renderGames()}
+$('foot').innerHTML='© '+new Date().getFullYear()+' '+CFG.brand+' · WhatsApp +'+CFG.wa+'<br>Nama game dan merek adalah milik pemegang hak masing-masing.';
+/* Ticker pembelian: hanya pesanan BERHASIL yang nyata dari database, ID disamarkan oleh server */
+const ago=t=>{const m=Math.max(1,Math.round((Date.now()-t)/60000));return m<60?m+' menit lalu':m<1440?Math.round(m/60)+' jam lalu':Math.round(m/1440)+' hari lalu'};
+async function loadTicker(){try{const r=(await api('recent')).recent||[];if(!r.length){$('tick').style.display='none';return}
+const h=r.map(x=>`<span>ID <b>${esc(x.id)}</b> baru saja membeli <em>${esc(x.item)}</em> di ${esc(x.gname)} · ${ago(x.t)}</span>`).join('');
+$('tk').innerHTML=h+h;$('tk').style.animationDuration=Math.max(24,r.length*7)+'s';$('tick').style.display='flex'}catch(e){$('tick').style.display='none'}}
+slides();renderGames();renderRecent();loadGames();loadTicker();setInterval(loadTicker,60000);
+</script></body></html>
