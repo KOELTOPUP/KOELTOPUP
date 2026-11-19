@@ -196,5 +196,5 @@ const ago=t=>{const m=Math.max(1,Math.round((Date.now()-t)/60000));return m<60?m
 async function loadTicker(){try{const r=(await api('recent')).recent||[];if(!r.length){$('tick').style.display='none';return}
 const h=r.map(x=>`<span>ID <b>${esc(x.id)}</b> baru saja membeli <em>${esc(x.item)}</em> di ${esc(x.gname)} · ${ago(x.t)}</span>`).join('');
 $('tk').innerHTML=h+h;$('tk').style.animationDuration=Math.max(24,r.length*7)+'s';$('tick').style.display='flex'}catch(e){$('tick').style.display='none'}}
-slides();renderGames();renderRecent();loadGames();loadTicker();setInterval(loadTicker,60000);
+slides();renderGames();renderRecent();loadGames();loadTicker();setInterval(loadTicker,60000); 
 </script></body></html>
