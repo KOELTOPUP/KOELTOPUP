@@ -3,13 +3,13 @@
 // Ubah hadiah dan peluangnya di PRIZES. w = bobot peluang (makin besar makin sering).
 // Isi hadiah yang benar-benar sanggup kamu berikan.
 const PRIZES = [
-  { l: '20 Diamond', w: 30 },
-  { l: 'Diskon 5rb', w: 25 },
-  { l: '50 Diamond', w: 15 },
-  { l: 'Diskon 10rb', w: 12 },
-  { l: 'Voucher 15rb', w: 8 },
-  { l: '100 Diamond', w: 5 },
-  { l: 'Diskon 20rb', w: 4 },
+  { l: '20 Diamond', w: 1 },
+  { l: 'Diskon 5rb', w: 50 },
+  { l: '50 Diamond', w: 1 },
+  { l: 'Diskon 10rb', w: 20 },
+  { l: 'Skin Elite Random', w: 1 },
+  { l: '100 Diamond', w: 1 },
+  { l: 'Diskon 20rb', w: 1 },
   { l: '200 Diamond', w: 1 },
 ];
 const AL = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
