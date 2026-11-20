@@ -265,4 +265,4 @@ async function loadTicker(){try{const r=(await api('recent')).recent||[];if(!r.l
 const h=r.map(x=>`<span>ID <b>${esc(x.id)}</b> baru saja membeli <em>${esc(x.item)}</em> di ${esc(x.gname)} · ${ago(x.t)}</span>`).join('');
 $('tk').innerHTML=h+h;$('tk').style.animationDuration=Math.max(24,r.length*7)+'s';$('tick').style.display='flex'}catch(e){$('tick').style.display='none'}}
 slides();renderGames();renderRecent();syncOrders();loadGames();loadTicker();setInterval(loadTicker,60000);
-</script></body></html>
+</script><script src="nick.js"></script></body></html>
