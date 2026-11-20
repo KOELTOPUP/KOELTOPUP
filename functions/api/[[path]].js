@@ -4,9 +4,9 @@
 // Katalog harga di sisi server: harga TIDAK dipercaya dari browser.
 // Harus sama dengan GAMES di index.html. Ubah harga di kedua tempat.
 const CAT = {
-  ml: { name: 'Mobile Legends', uid: [6, 12], srv: [3, 6], items: { '86 Diamond': 21000, '172 Diamond': 42000, '257 Diamond': 62000, '344 Diamond': 83000, '514 Diamond': 123000, '706 Diamond': 168000 } },
-  pubg: { name: 'PUBG Mobile', uid: [8, 12], fixed: 'Indonesia', items: { '60 UC': 15000, '325 UC': 75000, '660 UC': 150000, '1800 UC': 380000 } },
-  ff: { name: 'Free Fire', uid: [7, 12], fixed: 'Indonesia', items: { '70 Diamond': 10000, '140 Diamond': 20000, '355 Diamond': 50000, '720 Diamond': 100000, '1450 Diamond': 200000 } },
+  ml: { name: 'Mobile Legends', uid: [6, 12], srv: [3, 6], items: { '20 Diamond': 7500, '30 Diamond': 11000, '44 Diamond': 14500, '54 Diamond': 18000, '59 Diamond': 19000, '65 Diamond': 23000, '74 Diamond': 25000, '80 Diamond': 27000, '92 Diamond': 30500, '98 Diamond': 32500, '110 Diamond': 36000, '128 Diamond': 42000, '148 Diamond': 47500, '170 Diamond': 54500, '240 Diamond': 76000, '277 Diamond': 88000, '284 Diamond': 90000, '296 Diamond': 93500, '305 Diamond': 96500, '370 Diamond': 119000, '384 Diamond': 122500, '408 Diamond': 129500, '518 Diamond': 164500, '554 Diamond': 175000, '790 Diamond': 244500, '875 Diamond': 268500, '966 Diamond': 300500, '1067 Diamond': 328000, '1136 Diamond': 348000, '1358 Diamond': 421000, '1506 Diamond': 459000, '1704 Diamond': 517000, '2010 Diamond': 573500, '2380 Diamond': 693500, '2578 Diamond': 750000, '2855 Diamond': 839000, '3146 Diamond': 920500, '3423 Diamond': 1018500, '4020 Diamond': 1153000, '4856 Diamond': 1407000, '4958 Diamond': 1421000, '5398 Diamond': 1551500, '6030 Diamond': 1722000, '6840 Diamond': 1949500, '7210 Diamond': 2087000, '7685 Diamond': 2219500, '8040 Diamond': 2301000, '8850 Diamond': 2528500 } },
+  pubg: { name: 'PUBG Mobile', uid: [8, 12], fixed: 'Indonesia', items: { '120 UC': 38000, '385 UC': 112000, '780 UC': 218000, '1320 UC': 365000, '1800 UC': 458000, '2460 UC': 644000, '3600 UC': 914000 } },
+  ff: { name: 'Free Fire', uid: [7, 12], fixed: 'Indonesia', items: { '12 Diamond': 2500, '50 Diamond': 9000, '70 Diamond': 10500, '140 Diamond': 21000, '355 Diamond': 50000, '720 Diamond': 99000, '1080 Diamond': 149000, '1450 Diamond': 198000 } },
 };
 const STS = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Berhasil', 'Pending (kendala sistem)', 'Gagal', 'Refund'];
 const PAY = ['QRIS', 'DANA', 'OVO', 'SeaBank'];
